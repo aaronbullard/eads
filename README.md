@@ -1,7 +1,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/1ee47671ee08764bfcc8/maintainability)](https://codeclimate.com/github/aaronbullard/eads/maintainability)
 
 
-# eads
+# EADS Utility
 PHP Utility for EADS APIs
 
 This is a helper class to translate a string of filters into usable sql.
