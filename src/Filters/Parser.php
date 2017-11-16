@@ -27,11 +27,19 @@ class Parser
     }, $this->queries);
   }
 
+  /**
+   * Get an array of individual query strings
+   * @return array Query strings
+   */
   public function getQueries() : array
   {
     return $this->queries;
   }
 
+  /**
+   * Get an array of individual query Filter
+   * @return array Filters
+   */
   public function getFilters() : array
   {
     return $this->filters;
