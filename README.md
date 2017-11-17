@@ -2,7 +2,12 @@
 
 
 # EADS Utility
-PHP Utility for EADS APIs
+PHP Utility for Enterprise APIs for Data Sharing Standard
+
+https://eads.540.co/
+
+
+## Filtering
 
 This is a helper class to translate a string of filters into usable sql.
 
@@ -14,10 +19,14 @@ This query translates to:
  - AND age > 18
  - AND weight BETWEEN 150 AND 200
 
+## Installation
+```php
+composer require aaronbullard/eads
+```
+
 ## Usage
 See the tests for usage and examples `/tests`
 
-## Installation
 ```php
 // GET `?filters=status==verified,age>18,weight>=<150;200`
 
@@ -27,6 +36,21 @@ $parser = new EADS\Filters\Parser($filterString);
 
 // Get first query
 $filter = $parser->getFilters()[0];
+$sql = $filter->getSQL(); // "status = ?"
+$bindings = $filter->getBindings(); // ['verified']
+```
+
+or
+
+```php
+// GET `?filters=status==verified,age>18,weight>=<150;200`
+
+$filterString = Request::get('filters');
+
+$filters = EADS::filters($filterString);
+
+// Get first query
+$filter = $filters[0];
 $sql = $filter->getSQL(); // "status = ?"
 $bindings = $filter->getBindings(); // ['verified']
 ```
