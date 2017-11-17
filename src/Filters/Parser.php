@@ -5,9 +5,9 @@ namespace EADS\Filters;
 class Parser
 {
   protected $escapedChars = [
-    'SEMICOLON' => '\;',
-    'COMMA' => '\,',
-    'BACKSLASH' => '\\'
+    '$$SEMICOLON$$' => '\;',
+    '$$COMMA$$' => '\,',
+    '$$BACKSLASH$$' => '\\'
   ];
 
   protected $filterQuery;

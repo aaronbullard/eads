@@ -15,6 +15,16 @@ class FilterTest extends \TestCase
       'oper' => '!=',
       'value' => ['1234']
     ],
+    "sentence=@foobar" => [
+      'field' => 'sentence',
+      'oper' => '=@',
+      'value' => ['foobar']
+    ],
+    "sentence!@foobar" => [
+      'field' => 'sentence',
+      'oper' => '!@',
+      'value' => ['foobar']
+    ],
     "id>=<400;600" => [
       'field' => 'id',
       'oper' => '>=<',
@@ -56,6 +66,14 @@ class FilterTest extends \TestCase
       "sql" => "id != ?",
       "bindings" => ['1234']
     ],
+    "sentence=@foobar" => [
+      'sql' => 'sentence LIKE ?',
+      'bindings' => ["'%foobar%'"]
+    ],
+    "sentence!@foobar" => [
+      'sql' => 'sentence NOT LIKE ?',
+      'bindings' => ["'%foobar%'"]
+    ],
     "id>=<400;600" => [
       "sql" => "id BETWEEN ? AND ?",
       "bindings" => ['400', '600']
@@ -81,6 +99,13 @@ class FilterTest extends \TestCase
       "bindings" => ['1234']
     ]
   ];
+
+  public function test_it_returns_original_query()
+  {
+    $filter = new Filter('id==1234');
+
+    $this->assertEquals('id==1234', $filter->getQuery());
+  }
 
   public function test_it_creates_segments()
   {

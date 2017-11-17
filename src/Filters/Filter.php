@@ -10,11 +10,13 @@ class Filter
    * List of operators.  Order mattes
    * @var array
    */
-  protected $operators = ['==', '!=', '>=<', '>=', '<=', '><', '>', '<'];
+  protected $operators = ['==', '!=', '=@', '!@', '>=<', '>=', '<=', '><', '>', '<'];
 
   protected $sqlTemplates = [
     '==' => "{field} = ?",
     '!=' => "{field} != ?",
+    '=@' => "{field} LIKE ?",
+    '!@' => "{field} NOT LIKE ?",
     '>=' => "{field} >= ?",
     '<=' => "{field} <= ?",
     '>=<' => "{field} BETWEEN ? AND ?",
@@ -60,7 +62,16 @@ class Filter
 
   public function getBindings()
   {
-    return $this->getSegments()['value'];
+    $segments = $this->getSegments();
+
+    $value = $segments['value'];
+
+    // Handle =@ and !@ for a LIKE query
+    if($segments['oper'] == '=@' || $segments['oper'] == '!@'){
+      $value[0] = "'%" . $value[0] . "%'";
+    }
+
+    return $value;
   }
 
   protected function handleSegments(string $query) : array
