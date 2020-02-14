@@ -54,6 +54,11 @@ class FilterTest extends \TestCase
             'field' => 'id',
             'oper' => '<',
             'value' => ['1234']
+        ],
+        "id==1234==567" => [
+            'field' => 'id',
+            'oper' => '==',
+            'value' => ['1234==567']
         ]
     ];
 

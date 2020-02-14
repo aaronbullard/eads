@@ -81,7 +81,7 @@ class Filter
             // is string present?
             if (strpos($query, $oper)) {
                 // Split string into array
-                $parts = explode($oper, $query);
+                $parts = explode($oper, $query, 2);
 
                 return [
                     'field' => $parts[0],
